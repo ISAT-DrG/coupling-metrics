@@ -1,0 +1,28 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module ctp_hilow_min ! in 
+    interface  ! in :ctp_hilow_min
+        module conv_trig_pot_mod ! in :ctp_hilow_min:ctp_hilow_min.f90
+            real, public :: ctp_hi_low
+            real, private :: dew_point
+            real, private :: saturation_specific_humidity
+            subroutine ctp_hi_low(nlev_in,tlev_in,qlev_in,plev_in,t2m_in,q2m_in,psfc_in,ctp,hilow,missing) ! in :ctp_hilow_min:ctp_hilow_min.f90:conv_trig_pot_mod
+                integer, intent(in) :: nlev_in
+                real(kind=4) dimension(nlev_in,1),intent(in) :: tlev_in
+                real(kind=4) dimension(nlev_in,1),intent(in),depend(nlev_in) :: qlev_in
+                real(kind=4) dimension(nlev_in,1),intent(in),depend(nlev_in) :: plev_in
+                real(kind=4) intent(in) :: t2m_in
+                real(kind=4) intent(in) :: q2m_in
+                real(kind=4) intent(in) :: psfc_in
+                real(kind=4) intent(out) :: ctp
+                real(kind=4) intent(out) :: hilow
+                real(kind=4) intent(in) :: missing
+            end subroutine ctp_hi_low
+        end module conv_trig_pot_mod
+    end interface 
+end python module ctp_hilow_min
+
+! This file was auto-generated with f2py (version:1.26.4).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e
