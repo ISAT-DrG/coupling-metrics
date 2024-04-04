@@ -1,7 +1,7 @@
 
 import pandas as pd
 import numpy as np
-from ctp_hilow_min_new import conv_trig_pot_mod
+from ctp_hilow_min import conv_trig_pot_mod
 
 cols =  ['yr1','mn1','hr1','plev1','hlev1','tlev1','qlev1', 
           'yr2','mn2','hr2','plev2','hlev2','tlev2','qlev2', 
@@ -41,7 +41,7 @@ arr  = np.ones([10,1], order='F')
 arr[:] = np.random.rand(10,1)
 #print('Shape of arr:' , arr.shape)
 
-conv_trig_pot_mod.ctp_hi_low(10, arr, arr, arr, 1,1, 1)
+ctp, hilow = conv_trig_pot_mod.ctp_hi_low(nlev_in=10, tlev_in=arr, qlev_in=arr, plev_in=arr, t2m_in=1,q2m_in=1, psfc_in=1, missing=999)
 
 print(ctp)
 

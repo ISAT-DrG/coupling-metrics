@@ -27,3 +27,15 @@
 
   - wait for stackoverflow. 
   - Pull subroutine out of module? 
+
+#### 4/4/2024
+
+- Stackoverflow answer worked
+  https://stackoverflow.com/questions/78240481/i-am-encountering-an-f2py-dimension-error-when-passing-numpy-array-to-fortran/78242614#78242614
+
+- Find out whether this is transferable between linux systems
+
+- Check out this resource on Windows builds:
+
+  https://numpy.org/devdocs/f2py/windows/index.html
+
