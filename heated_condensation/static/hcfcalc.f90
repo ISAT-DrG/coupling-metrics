@@ -660,7 +660,8 @@ subroutine hcfcalc ( nlev1  , missing, tmp_in, press_in, qhum_in, hgt_in,  &
       else
           between =   (cp_g)  *  0.5*(yaxis1(itop)+tthresh)  *  (xaxis1(itop)-pthresh)
           do zz=ibot,itop
-             integral(zz)    =  sum(  (cp_g)  *  0.5*(yaxis(zz:itop)+yaxis1(zz:itop))  *  (xaxis(zz:itop)-xaxis1(zz:itop)) )
+             integral(zz)    =  sum(  (cp_g)  *  0.5*(yaxis(zz:itop)+yaxis1(zz:itop))  *  &
+             (xaxis(zz:itop)-xaxis1(zz:itop)) )
              below   (zz+1)  =        (cp_g)  *  yaxis(zz+1)    *  (xaxis(ibot) - xaxis(zz+1))
           end do
       end if
@@ -669,11 +670,13 @@ subroutine hcfcalc ( nlev1  , missing, tmp_in, press_in, qhum_in, hgt_in,  &
       !-----------------------------------------------------------------------------
       !--------  Deficit for mixed layer only
       !-----------------------------------------------------------------------------
-      itop    =   minloc( xaxis1,  DIM = 1,  MASK = xaxis1.gt.pthresh                          .and.  xaxis1.ne.missing )
+      itop    =   minloc( xaxis1,  DIM = 1,  MASK = xaxis1.gt.pthresh                          .and.  &
+                  xaxis1.ne.missing )
       if(  all(.not.(xaxis1.gt.pthresh  .and.  xaxis.lt.pbl_p   .and.  xaxis1.ne.missing))  )  then
          ibot =   itop
       else
-         ibot =   maxloc( xaxis1,  DIM = 1,  MASK = xaxis1.gt.pthresh  .and.  xaxis.lt.pbl_p   .and.  xaxis1.ne.missing )
+         ibot =   maxloc( xaxis1,  DIM = 1,  MASK = xaxis1.gt.pthresh  .and.  xaxis.lt.pbl_p   .and.  & 
+                  xaxis1.ne.missing )
       end if
       nbot    =   itop - ibot + 1
       itop0   =   itop
@@ -689,11 +692,15 @@ subroutine hcfcalc ( nlev1  , missing, tmp_in, press_in, qhum_in, hgt_in,  &
           if( between0.lt.0 )  between0  =  0.
       else
           !*** explicit layer and BCL
-          between0   =                 (cp_g)  *  0.5*(yaxis1(itop)     + tthresh)            *  (xaxis1(itop)     - pthresh)
-          integral0  =   sum(          (cp_g)  *  0.5*(yaxis(ibot:itop) + yaxis1(ibot:itop))  *  (xaxis(ibot:itop) - xaxis1(ibot:itop)) )
+          between0   =                 (cp_g)  *  0.5*(yaxis1(itop)     + tthresh)            * &
+                      (xaxis1(itop)     - pthresh)
+          integral0  =   sum(          (cp_g)  *  0.5*(yaxis(ibot:itop) + yaxis1(ibot:itop))  * &
+                      (xaxis(ibot:itop) - xaxis1(ibot:itop)) )
           !*** explicit layer and PBL
-          between0   =   between0  +  ((cp_g)  *  0.5*(yaxis(ibot)      + pbl_pot)            *  (pbl_p            - xaxis (ibot)))
-          below0     =                 (cp_g)  *  pbl_pot                                     *  (psfc             - pbl_p)
+          between0   =   between0  +  ((cp_g)  *  0.5*(yaxis(ibot)      + pbl_pot)            *  &
+                         (pbl_p            - xaxis (ibot)))
+          below0     =                 (cp_g)  *  pbl_pot                                     *  &
+                         (psfc             - pbl_p)
       end if
 
       !--------------------------------------------------------------------
@@ -760,7 +767,8 @@ subroutine hcfcalc ( nlev1  , missing, tmp_in, press_in, qhum_in, hgt_in,  &
       !************************************
       !**** special no transition case ****
       !************************************
-      if( all(eadv.eq.missing) .or. all(eadv.lt.45 .or. eadv.eq.missing) .or. all(eadv.gt.45 .or. eadv.eq.missing) ) then
+      if( all(eadv.eq.missing) .or. all(eadv.lt.45 .or. eadv.eq.missing) .or. & 
+          all(eadv.gt.45 .or. eadv.eq.missing) ) then
         TRAN_P  =  missing
         TRAN_T  =  missing
         TRAN_H  =  missing
